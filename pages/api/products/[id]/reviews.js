@@ -46,7 +46,9 @@ async function handler(req, res) {
           }
         );
 
-        const updatedProduct = await product;
+        const updatedProduct = await db
+          .collection("products")
+          .findOne({ _id: ObjectId(req.query.id) });
         const numReviews = updatedProduct.reviews.length;
         const rating =
           updatedProduct.reviews.reduce((a, c) => c.rating + a, 0) /
